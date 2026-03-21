@@ -1,11 +1,11 @@
 # Matriz de Riesgos - Proyecto Ferretería 
 
-| # | Nombre del riesgo | Categoría | Probabilidad | Impacto | Nivel (PxI) | Prioridad |
-| :--- | :--- | :--- | :---: | :---: | :---: | :--- |
-| 1 | Definición imprecisa de criterios de "stock mínimo" con el cliente. | De requisitos | 3 | 4 | **12** | **Alto** |
-| 2 | Dificultad técnica para implementar la persistencia de datos histórica. | Técnico | 2 | 5 | **10** | **Alto** |
-| 3 | Incompatibilidad de horarios laborales/académicos del equipo. | De equipo | 4 | 3 | **12** | **Alto** |
-| 4 | Inestabilidad en la conexión a internet de los integrantes (Posadas). | Externo | 3 | 3 | **9** | **Medio** |
-| 5 | Diseño de interfaz con complejidad excesiva para el usuario final. | De requisitos | 2 | 4 | **8** | **Medio** |
+| # | Riesgo | Prob. | Imp. | Nivel | Estrategia de Mitigación (Preventivo) | Plan de Contingencia (Correctivo) |
+| :-- | :--- | :---: | :---: | :---: | :--- | :--- |
+| **1** | **Definición de stock mínimo imprecisa** | 3 | 4 | **12** | [cite_start]Realizar una entrevista dirigida con el cliente para definir reglas de negocio claras y prototipar la pantalla de alertas en Figma antes de programar[cite: 61, 83]. | Establecer un valor por defecto editable en el sistema y habilitar un log de errores para ajustar los parámetros manualmente si el cliente nota fallos. |
+| **2** | **Dificultad con la persistencia de datos** | 2 | 5 | **10** | [cite_start]El Dev Lead realizará una investigación de arquitectura sobre el manejo de transacciones e historial en la Semana 3 para validar la viabilidad técnica[cite: 80]. | Simplificar el módulo de historial a un registro básico en memoria o archivos planos temporalmente para no detener el flujo de entradas y salidas. |
+| **3** | **Incompatibilidad de horarios del equipo** | 4 | 3 | **12** | [cite_start]Establecer acuerdos de trabajo flexibles basados en objetivos semanales y registrar cada avance en el Kanban para mantener la visibilidad asincrónica[cite: 91]. | Redistribuir las tareas críticas del integrante ausente entre los demás miembros del equipo para asegurar que el Sprint Goal no se vea comprometido. |
+| **4** | **Inestabilidad de conexión (Posadas)** | 3 | 3 | **9** | [cite_start]Implementar una política de "Commits Frecuentes" (mínimo 3 por semana) para que el avance siempre resida en la nube y no en una máquina local[cite: 91]. | Utilizar datos móviles para sincronizar archivos Markdown de documentación o trabajar sobre ramas locales hasta que el servicio se restablezca. |
+| **5** | **Interfaz con complejidad excesiva** | 2 | 4 | **8** | [cite_start]Aplicar principios de usabilidad simples y realizar pruebas internas de "recorrido cognitivo" con el equipo para validar la facilidad de carga[cite: 67, 112]. | Realizar un "descope" de funcionalidades estéticas, priorizando únicamente la visibilidad de los niveles de stock y los botones de acción rápida. |
 
 > **Nota del Scrum Master:** Los niveles de riesgo se calculan siguiendo la matriz de 5x5. Los riesgos con nivel 10 o superior (Prioridad Alta) requieren monitoreo semanal en las Dailies.
