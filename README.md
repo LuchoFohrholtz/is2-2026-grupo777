@@ -1,4 +1,4 @@
-# is2-2026- Grupo777
+# is2-2026- nipintucu
 ## Descripción del Proyecto
 Desarrollamos un sistema web de gestión de inventario para una ferretería que permite registrar productos y controlar el stock en tiempo real.
 
