@@ -1,1 +1,15 @@
-# Contrato de Proyecto
+# Contrato de Proyecto - Gestión de Inventario Ferretería
+Escenario elegido y justificación:
+Seleccionamos el sistema de gestión de inventario para una ferretería mediana debido a que presenta un desafío técnico equilibrado entre la gestión de datos y la experiencia de usuario. La problemática actual del cliente (desconocimiento de stock y falta de previsión en compras) nos permite aplicar soluciones de software que impactan directamente en la eficiencia operativa. Elegimos este escenario porque ofrece reglas de negocio claras, como el sistema de alertas por stock mínimo, lo que facilita la definición de criterios de aceptación. Además, es un modelo escalable que permite practicar la trazabilidad de productos de manera profesional.
+
+Metodología de desarrollo y justificación técnica:
+Utilizaremos Scrum como marco de trabajo ágil, adaptado a los tiempos académicos de la cátedra. Esta elección se justifica técnicamente porque necesitamos un desarrollo incremental que nos permita recibir feedback constante y ajustar funcionalidades de forma rápida. Dividiremos el trabajo en Sprints cortos, lo que garantiza que siempre haya una versión funcional del sistema (MVP). La naturaleza de un sistema de inventario requiere iteraciones constantes en la lógica de movimientos de stock, y Scrum nos brinda la flexibilidad necesaria para manejar estos cambios sin comprometer la fecha de entrega final.
+
+Roles Asignados:
+* Scrum Master: Santiago Gonzalez (Responsable de facilitar el proceso, eliminar impedimentos y asegurar el cumplimiento de la metodología).
+* Dev Lead: Luciano Fohrholtz (Responsable de la arquitectura técnica, la calidad del código y la toma de decisiones sobre el stack tecnológico).
+* QA Lead: Juan Carlos Abente (Responsable de la estrategia de pruebas, validación de criterios de aceptación y reporte de bugs).
+* UX Lead: Mariano Acosta (Responsable del diseño de interfaz, usabilidad, prototipado y asegurar que el sistema sea intuitivo para el empleado).
+
+Acuerdos de Trabajo (Team Agreements):
+El equipo mantendrá una comunicación constante a través de WhatsApp para coordinar la operativa diaria y avisos de urgencia. Debido a que los integrantes tienen responsabilidades laborales y académicas con horarios rotativos, no se establecen días fijos de reunión, sino que se acordarán encuentros sincrónicos en Discord según la disponibilidad compartida de la semana para realizar sesiones de co-working y Daily Standups. Este esquema de horarios variables exige que cada miembro informe su disponibilidad con antelación para asegurar que todos puedan estar presentes en las decisiones críticas. En cuanto al flujo de trabajo, se mantiene el requisito de realizar al menos 3 commits semanales con mensajes descriptivos bajo la convención de Conventional Commits. Finalmente, para asegurar la calidad a pesar de la asincronía horaria, las tarjetas del Kanban solo se moverán a la columna "Hecho" una vez que el QA Lead verifique los criterios de aceptación y el Dev Lead realice la revisión técnica del código.
