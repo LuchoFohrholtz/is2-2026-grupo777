@@ -131,11 +131,14 @@ correcto para el problema.
 
 **Responsable:** QA Lead
 
-**¿Para qué se usó?** Desarrollar el código en Java del patrón de diseño Strategy para cumplir con el requerimiento de exportar el inventario de la ferretería en múltiples formatos (PDF y Excel/CSV), e integrarlo al código base del sistema.
+**¿Para qué se usó?** 
+Desarrollar el código en Java del patrón de diseño Strategy para cumplir con el requerimiento de exportar el inventario de la ferretería en múltiples formatos (PDF y Excel/CSV), e integrarlo al código base del sistema.
 
-**¿Qué generó la IA?** El código fuente de la interfaz ReporteStrategy, las estrategias concretas ReporteExcel y ReportePDF, la clase de contexto GeneradorReportes, y la actualización completa de la clase Main.java incluyendo la nueva opción del menú y la ejecución dinámica de la estrategia.
+**¿Qué generó la IA?** 
+El código fuente de la interfaz ReporteStrategy, las estrategias concretas ReporteExcel y ReportePDF, la clase de contexto GeneradorReportes, y la actualización completa de la clase Main.java incluyendo la nueva opción del menú y la ejecución dinámica de la estrategia.
 
-**¿Qué modificamos y por qué?** Agrupamos las nuevas clases dentro de un paquete específico llamado strategy para mantener la coherencia y el orden con la estructura de carpetas que ya venía usando el equipo (ej: paquete observer).
+**¿Qué modificamos y por qué?**
+Agrupamos las nuevas clases dentro de un paquete específico llamado strategy para mantener la coherencia y el orden con la estructura de carpetas que ya venía usando el equipo (ej: paquete observer).
 
 Verificamos que el código de la IA consumiera correctamente los atributos y métodos reales del modelo existente (como getStockActual() y getCategoria().getNombre() de la clase Producto) para asegurar una integración sin errores.
 
