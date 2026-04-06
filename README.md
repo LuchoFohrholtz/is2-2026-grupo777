@@ -32,19 +32,19 @@ Desarrollamos un sistema web de gestión de inventario para una ferretería que 
 | Figma | Prototipo de interfaz |
 
 ## Patrones de diseño implementados
-# Observer — Comportamental
+### Observer — Comportamental
 Aplicado entre Producto y los observadores Alerta y OrdenReposicion.
 Cuando el stock de un producto cae por debajo del mínimo configurado, el sistema notifica automáticamente a todos los observadores registrados sin que Producto conozca sus implementaciones.
-# Strategy — Comportamental
+### Strategy — Comportamental
 Aplicado en el módulo de reportes a través de GeneradorReporte y las estrategias ReporteReposicion y ReporteStockActual.
 Permite intercambiar el algoritmo de generación de reportes en tiempo de ejecución sin modificar el código del contexto.
 
 ## Caso de uso principal
-#Registrar una salida de stock y generar alerta si el stock queda bajo mínimo
-1- El empleado registra una salida de stock con producto, cantidad y motivo.
-2- El sistema descuenta el stock actual del producto.
-3- Si stock_actual < stock_minimo, el patrón Observer notifica automáticamente a Alerta y OrdenReposicion.
-4- La alerta queda registrada y visible en el panel de alertas.
+### Registrar una salida de stock y generar alerta si el stock queda bajo mínimo
+* 1- El empleado registra una salida de stock con producto, cantidad y motivo.
+* 2- El sistema descuenta el stock actual del producto.
+* 3- Si stock_actual < stock_minimo, el patrón Observer notifica automáticamente a Alerta y OrdenReposicion.
+* 4- La alerta queda registrada y visible en el panel de alertas.
 
 ## Uso de IA
 El equipo utilizó herramientas de IA durante el desarrollo.
