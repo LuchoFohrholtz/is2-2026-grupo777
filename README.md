@@ -14,6 +14,7 @@ Desarrollamos un sistema web de gestión de inventario para una ferretería que 
 ## Enlaces Rápidos
 * [Tablero Kanban (GitHub Projects)](https://github.com/users/LuchoFohrholtz/projects/1)
 * [Matriz de Riegos](https://github.com/LuchoFohrholtz/is2-2026-nipintucu/blob/main/docs/matriz-de-riesgos.md)
+* [AI Log](https://github.com/LuchoFohrholtz/is2-2026-nipintucu/blob/main/docs/contrato-de-proyecto.md).
 * [Informe TP1](https://docs.google.com/document/d/1C3rg_HAe2fNjk1P0o_SO_F86wyOYUDYX/edit?usp=sharing&ouid=105019262908114217359&rtpof=true&sd=true)
 * [Documentación de Patrones de Diseño](https://github.com/LuchoFohrholtz/is2-2026-nipintucu/blob/main/docs/patrones-tp1.md). 
 
@@ -29,3 +30,22 @@ Desarrollamos un sistema web de gestión de inventario para una ferretería que 
 | HTML / CSS / JS  | Interfaz web     | 
 | GitHub Projects      | Tablero Kanban     |
 | Figma | Prototipo de interfaz |
+
+## Patrones de diseño implementados
+# Observer — Comportamental
+Aplicado entre Producto y los observadores Alerta y OrdenReposicion.
+Cuando el stock de un producto cae por debajo del mínimo configurado, el sistema notifica automáticamente a todos los observadores registrados sin que Producto conozca sus implementaciones.
+# Strategy — Comportamental
+Aplicado en el módulo de reportes a través de GeneradorReporte y las estrategias ReporteReposicion y ReporteStockActual.
+Permite intercambiar el algoritmo de generación de reportes en tiempo de ejecución sin modificar el código del contexto.
+
+## Caso de uso principal
+#Registrar una salida de stock y generar alerta si el stock queda bajo mínimo
+1- El empleado registra una salida de stock con producto, cantidad y motivo.
+2- El sistema descuenta el stock actual del producto.
+3- Si stock_actual < stock_minimo, el patrón Observer notifica automáticamente a Alerta y OrdenReposicion.
+4- La alerta queda registrada y visible en el panel de alertas.
+
+## Uso de IA
+El equipo utilizó herramientas de IA durante el desarrollo.
+Todo el uso está documentado con detalle en: [AI Log](https://github.com/LuchoFohrholtz/is2-2026-nipintucu/blob/main/docs/contrato-de-proyecto.md).
