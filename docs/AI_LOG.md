@@ -95,3 +95,33 @@ Tabla de 8 tareas asignadas a cada rol con semana objetivo.
   cuatrimestre.
 - Reasignamos la tarea de AI_LOG al QA Lead por ser 
   quien tiene mayor control del proceso de calidad.
+
+#Entrada 007
+
+## Herramienta utilizada
+Claude (Anthropic) – claude.ai
+
+## Partes generadas con IA
+- Prototipo navegable HTML/CSS/JS de las 5 pantallas del sistema
+- Capturas PNG de cada pantalla
+
+
+## Qué modificamos / revisamos
+- Verificamos que las clases propuestas (StockSubject, AlertaObserver,
+  ReporteStrategy, etc.) reflejen correctamente los patrones GoF
+- Adaptamos los nombres de clases a las convenciones del proyecto
+- Ajustamos los datos de ejemplo para que sean consistentes con
+  el dominio real (ferretería)
+
+## Justificación del uso
+Se utilizó IA para acelerar el diseño visual del prototipo (que no
+es el núcleo evaluado del TP) y para obtener una segunda opinión
+sobre la justificación técnica de los patrones. Las decisiones de
+diseño (qué patrón usar, por qué, qué clases involucrar) fueron
+tomadas y comprendidas por el equipo antes de la generación.
+
+## Uso crítico
+La IA propuso inicialmente usar Singleton para el servicio de alertas.
+Se descartó porque Singleton resuelve instancia única, no el problema
+de notificación desacoplada. Se mantuvo Observer por ser el patrón
+correcto para el problema.
