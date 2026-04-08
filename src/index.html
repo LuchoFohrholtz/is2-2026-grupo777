@@ -1097,8 +1097,18 @@ async function registrarMovimiento() {
   if (!r.ok) { toast(data.error, 'error'); return; }
 
   toast(`Movimiento registrado — ${tipo} de ${cantidad} unidades`);
+
+  // Guardar el producto seleccionado antes de que cargarProductos() reconstruya el <select>
+  const productoSeleccionado = document.getElementById('mov-producto').value;
   cargarMovimientos();
-  cargarProductos();
+  await cargarProductos();
+  // Restaurar la selección después de que el <select> se haya vuelto a poblar
+  const sel = document.getElementById('mov-producto');
+  if (sel) sel.value = productoSeleccionado;
+
+  // Limpiar solo cantidad y motivo (no el selector de producto)
+  document.getElementById('mov-cantidad').value = 1;
+  document.getElementById('mov-motivo').value   = '';
 
   const box  = document.getElementById('resultado-mov');
   const cont = document.getElementById('resultado-contenido');
