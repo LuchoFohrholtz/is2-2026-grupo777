@@ -193,7 +193,7 @@ en código Python y mejoras que aporta al sistema.
 
 **Herramienta:** Antigravity AI (Google DeepMind) — asistente de codificación  
 **Responsable:** Dev Lead  
-**Commit de referencia:** `86ecb8c` — _"Se actualizo el login"_ (Thu Apr 16 2026)
+**Commit de referencia:** `86ecb8c` — _"Se actualizo el login, se añadieron nuevas funcionalidades y conexion con base de datos"_ (Thu Apr 16 2026)
 
 **¿Para qué se usó?**  
 Rediseñar la pantalla de login con una estética neon/graffiti urbana, migrar el backend de modelos en memoria a Supabase (base de datos relacional en la nube), y agregar funcionalidades nuevas al sistema (campana de alertas, doble precio costo/venta, carrito de ventas y margen de ganancia configurable).
