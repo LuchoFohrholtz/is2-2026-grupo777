@@ -186,3 +186,38 @@ en código Python y mejoras que aporta al sistema.
 - Agregamos la sección de alternativas descartadas porque
   la rúbrica del coloquio evalúa específicamente ese punto
   (Dimensión 3 — justificación de decisiones de diseño). 
+
+---
+
+## Entrada 011 — Actualización del Login y Migración a Supabase — Semana de TP2
+
+**Herramienta:** Antigravity AI (Google DeepMind) — asistente de codificación  
+**Responsable:** Dev Lead  
+**Commit de referencia:** `86ecb8c` — _"Se actualizo el login"_ (Thu Apr 16 2026)
+
+**¿Para qué se usó?**  
+Rediseñar la pantalla de login con una estética neon/graffiti urbana, migrar el backend de modelos en memoria a Supabase (base de datos relacional en la nube), y agregar funcionalidades nuevas al sistema (campana de alertas, doble precio costo/venta, carrito de ventas y margen de ganancia configurable).
+
+**¿Qué generó la IA?**
+
+| Archivo | Tipo de cambio | Descripción |
+|---|---|---|
+| `src/index.html` | Modificado | Rediseño completo del login con fondo oscuro tipo pared urbana, tags de graffiti SVG decorativos, card con borde neon pulsante (`neonPulse`), logo flotante con glow azul, inputs dark-mode y botón redondeado con gradiente. Además: nueva campana de notificaciones con dropdown, badge de alertas en tabs de navegación, ajuste del header (flex + bell-wrap), y estilos CSS compactados. |
+| `src/app.py` | Modificado (506 líneas → completo) | Migración de todos los endpoints de modelos Python en memoria a consultas Supabase. Rutas nuevas: `/api/login`, `/api/productos` (GET/POST), `/api/productos/<id>` (PUT/DELETE), `/api/movimientos`, `/api/alertas`, `/api/ordenes`, `/api/ventas` (carrito + venta_items), `/api/stats`, `/api/config/margen`, `/api/exportar/<tipo>`. `exportar_excel` actualizado para mostrar `precio_costo` y `precio_venta` en columnas separadas (9 columnas en vez de 7). |
+| `src/models.py` | Modificado | Eliminadas las clases de dominio en memoria (`Producto`, `Categoria`, `StockMovimiento`, `Empleado`) porque la persistencia se delega a Supabase. Se mantuvieron y adaptaron los patrones GoF: Observer (`Observador`, `AlertaObserver`, `OrdenReposicionObserver`), Strategy (`EstrategiaReporte`, `ReporteReposicion`, `ReporteStockActual`, `GeneradorReporte`). Los métodos `generar()` ahora operan sobre diccionarios `p["campo"]` en vez de objetos Python. Agregado comentario explicativo al patrón Strategy. |
+| `src/database.py` | **NUEVO** | Módulo de conexión a Supabase usando `postgrest` + `httpx` directamente (sin la librería oficial `supabase-py` para evitar dependencias conflictivas). Clase `SupabaseDB` con timeout de 10 s, lee `SUPABASE_URL`, `SUPABASE_KEY` y `MARGEN_GANANCIA` desde `.env`. Exporta instancia global `supabase`. |
+| `setup_db.sql` | **NUEVO** | Script SQL completo para Supabase Dashboard con 6 tablas: `productos` (precio_costo, precio_venta, stock, categoría), `movimientos`, `alertas`, `ordenes_reposicion`, `ventas`, `venta_items`. Incluye políticas RLS permisivas para clave `anon`. |
+| `.gitignore` | **NUEVO** | Ignora `.env`, `__pycache__`, `.vscode`, `.idea`, `.DS_Store`, `Thumbs.db` y artefactos de build de Python. |
+| `src/requirements.txt` | Modificado | Agregadas dependencias `supabase` y `python-dotenv`. |
+| `src/logo.png` | **NUEVO** | Logo de FerreRAP añadido al directorio `src/` para ser referenciado en la pantalla de login. |
+
+**¿Qué modificamos y por qué?**
+- Rechazamos la dependencia oficial `supabase-py` porque instala `pyiceberg` y `storage3`, que generaban conflictos de versiones en Windows. Se reemplazó por `postgrest` + `httpx` puro.
+- El panel de login generado inicialmente no incluía el logo flotante sobre la card; se ajustó el `z-index` y el `margin-bottom` negativo para lograr el efecto superpuesto.
+- Los reportes Excel pasaron de 7 a 9 columnas para mostrar `precio_costo` y `precio_venta` por separado, alineándose con el modelo de negocio real de la ferretería (precio de compra ≠ precio de venta).
+- La animación `neonPulse` se calibró manualmente para que el pulso no fuera agresivo (3 s, amplitud moderada).
+- Se validó que las políticas RLS del SQL permitan acceso anónimo durante el desarrollo; se recomienda restringir en producción.
+
+**Uso crítico de la IA:**  
+La IA propuso inicialmente usar la librería oficial `supabase-py` para la integración. El equipo detectó que esto arrastraba dependencias innecesarias (`pyiceberg`, `storage3`) que rompían el entorno en Windows. Se discutió la alternativa y se decidió implementar `SupabaseDB` directamente sobre `postgrest` + `httpx`, lo que demostró comprensión del protocolo REST de Supabase en lugar de depender de una abstracción opaca.
+

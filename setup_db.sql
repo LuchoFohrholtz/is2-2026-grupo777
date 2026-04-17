@@ -94,3 +94,15 @@ CREATE POLICY "allow_all_ventas" ON ventas FOR ALL USING (true) WITH CHECK (true
 
 ALTER TABLE venta_items ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "allow_all_venta_items" ON venta_items FOR ALL USING (true) WITH CHECK (true);
+
+-- ═══════════════════════════════════════════════════════
+--  NUEVAS COLUMNAS — Método de Pago + Facturación
+--  Ejecutar en Supabase SQL Editor si ya tenés la tabla creada
+-- ═══════════════════════════════════════════════════════
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS metodo_pago TEXT DEFAULT 'efectivo';
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS factura_tipo TEXT;
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS factura_situacion TEXT;
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS factura_nombre TEXT;
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS factura_dni TEXT;
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS factura_cuit TEXT;
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS factura_direccion TEXT;

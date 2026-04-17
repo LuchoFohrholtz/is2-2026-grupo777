@@ -277,8 +277,10 @@ def registrar_movimiento():
 def registrar_venta():
     """Procesa el carrito completo: registra venta + movimientos de salida."""
     d = request.json or {}
-    items   = d.get("items", [])
-    usuario = d.get("usuario", "anon")
+    items       = d.get("items", [])
+    usuario     = d.get("usuario", "anon")
+    metodo_pago = d.get("metodo_pago", "efectivo")
+    factura     = d.get("factura")          # dict o None
 
     if not items:
         return jsonify({"error": "El carrito esta vacio."}), 400
@@ -302,12 +304,23 @@ def registrar_venta():
         for item in items
     )
 
-    # Crear registro de venta
-    venta = supabase.table("ventas").insert({
-        "usuario": usuario,
-        "total": round(total_venta, 2),
+    # Armar datos de venta
+    venta_data = {
+        "usuario":     usuario,
+        "total":       round(total_venta, 2),
         "items_count": len(items),
-    }).execute().data[0]
+        "metodo_pago": metodo_pago,
+    }
+    if factura:
+        venta_data["factura_tipo"]       = factura.get("tipo")
+        venta_data["factura_situacion"]  = factura.get("situacion")
+        venta_data["factura_nombre"]     = factura.get("nombre")
+        venta_data["factura_dni"]        = factura.get("dni")
+        venta_data["factura_cuit"]       = factura.get("cuit")
+        venta_data["factura_direccion"]  = factura.get("direccion")
+
+    # Crear registro de venta
+    venta = supabase.table("ventas").insert(venta_data).execute().data[0]
 
     notificaciones = []
 
@@ -321,12 +334,12 @@ def registrar_venta():
 
         # Item de venta
         supabase.table("venta_items").insert({
-            "venta_id": venta["id"],
-            "producto_id": pid,
+            "venta_id":        venta["id"],
+            "producto_id":     pid,
             "producto_nombre": producto["nombre"],
-            "cantidad": cant,
+            "cantidad":        cant,
             "precio_unitario": punit,
-            "subtotal": sub,
+            "subtotal":        sub,
         }).execute()
 
         # Actualizar stock
@@ -335,13 +348,13 @@ def registrar_venta():
 
         # Registrar movimiento de salida
         supabase.table("movimientos").insert({
-            "producto_id": pid,
+            "producto_id":     pid,
             "producto_nombre": producto["nombre"],
-            "cantidad": cant,
-            "tipo": "salida",
-            "motivo": f"Venta #{venta['id']}",
+            "cantidad":        cant,
+            "tipo":            "salida",
+            "motivo":          f"Venta #{venta['id']}",
             "precio_unitario": punit,
-            "total": sub,
+            "total":           sub,
         }).execute()
 
         # Observer: verificar stock bajo
@@ -353,11 +366,23 @@ def registrar_venta():
 
     venta["total"] = float(venta["total"])
     return jsonify({
-        "venta": venta,
-        "total": total_venta,
-        "items_count": len(items),
+        "venta":         venta,
+        "total":         total_venta,
+        "items_count":   len(items),
         "notificaciones": notificaciones,
     }), 201
+
+
+@app.route("/api/ventas/<int:venta_id>", methods=["GET"])
+def get_venta(venta_id):
+    """Devuelve datos completos de una venta con sus items (para comprobante)."""
+    venta_res = supabase.table("ventas").select("*").eq("id", venta_id).execute()
+    if not venta_res.data:
+        return jsonify({"error": "Venta no encontrada"}), 404
+    venta = venta_res.data[0]
+    items_res = supabase.table("venta_items").select("*").eq("venta_id", venta_id).execute()
+    venta["items"] = items_res.data or []
+    return jsonify(venta)
 
 
 # ════════════════════════════════════════════════════════════
